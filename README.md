@@ -1,4 +1,8 @@
-| http://current-plot.herokuapp.com/
+| http://dq-27.herokuapp.com/current_plot
+
+Inspired by idea to keep up with current events,
+
+developed platform to help take a glance at critical data worth visualizing.
 
 Earthquake Plotting
 
