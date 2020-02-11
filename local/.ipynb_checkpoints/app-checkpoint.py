@@ -118,7 +118,6 @@ def kr():
         for code in kos:
             for pg in range(1,int(results/6)+2):
                 url = f"https://finance.naver.com/sise/sise_index_day.nhn?code={code}&page={pg}"
-#                 return(url)
                 if pg == 1:
                     df = pd.read_html(url)[0].dropna()
                 else:
