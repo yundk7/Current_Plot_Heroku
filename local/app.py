@@ -95,12 +95,12 @@ def us():
 
 @app.route("/kr", methods=["GET", "POST"])
 def kr():
+    symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")
     if request.method == "POST":
         stocks = request.form["symbols"]
         stocks = stocks.upper()
         stocks = str(stocks).replace(" ","").split(",")
 
-        symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")
         symbols = symbols[0]
         stocks_df = pd.DataFrame({"회사명": stocks})
         stocks_symbols = pd.merge(stocks_df,symbols)
@@ -111,7 +111,7 @@ def kr():
         kos_name = ["코스피","코스피200","코스닥"]
         kos = ["KOSPI", "KPI200", "KOSDAQ"]
         for code in kos:
-            for pg in range(1,2):#,int(results/6)+2):
+            for pg in range(1,int(results/6)+2):
                 url = f"https://finance.naver.com/sise/sise_index_day.nhn?code={code}&page={pg}"
 #                 return(url)
                 if pg == 1:
