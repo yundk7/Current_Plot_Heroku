@@ -6,6 +6,7 @@ import plotly.graph_objs as go
 import plotly.express as px
 py.offline.init_notebook_mode(connected = True)
 from flask import Flask, request, render_template, session, redirect, jsonify
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
 
@@ -95,7 +96,13 @@ def us():
 
 @app.route("/kr", methods=["GET", "POST"])
 def kr():
-    symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")
+    con = create_engine("sqlite:///kr_stock_symbol.sqlite")
+    if len(con.table_names()) == 0:
+        symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")
+        symbols.to_sql("kr_stock_symbol",con,index=False,if_exists="replace")
+    else:
+        symbols = pd.read_sql("kr_stock_symbol",con)
+        return(symbols)
     
     if request.method == "POST":
         stocks = request.form["symbols"]
