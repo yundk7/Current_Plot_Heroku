@@ -111,7 +111,7 @@ def kr():
         kos_name = ["코스피","코스피200","코스닥"]
         kos = ["KOSPI", "KPI200", "KOSDAQ"]
         for code in kos:
-            for pg in range(1,int(results/6)+2):
+            for pg in range(1)#,int(results/6)+2):
                 url = f"https://finance.naver.com/sise/sise_index_day.nhn?code={code}&page={pg}"
                 if pg == 1:
                     df = pd.read_html(url)[0].dropna()
