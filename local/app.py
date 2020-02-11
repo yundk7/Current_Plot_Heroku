@@ -98,26 +98,24 @@ def us():
 def kr():
     con = create_engine("sqlite:///kr_stock_symbol.sqlite")
     if len(con.table_names()) == 0:
-        symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")
+        symbols = pd.read_html("http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13",encoding="euc_kr")[0]
         symbols.to_sql("kr_stock_symbol",con,index=False,if_exists="replace")
     else:
         symbols = pd.read_sql("kr_stock_symbol",con)
-        return(symbols)
     
     if request.method == "POST":
         stocks = request.form["symbols"]
         stocks = stocks.upper()
         stocks = str(stocks).replace(" ","").split(",")
 
-        symbols = symbols[0]
         stocks_df = pd.DataFrame({"회사명": stocks})
         stocks_symbols = pd.merge(stocks_df,symbols)
         codes = stocks_symbols["종목코드"]
         results = 30
 
         dfs = []
-        kos_name = ["코스피","코스피200","코스닥"]
-        kos = ["KOSPI", "KPI200", "KOSDAQ"]
+        kos_name = ["코스피","코스닥"]#,"코스피200"
+        kos = ["KOSPI", "KOSDAQ"]#"KPI200"
         for code in kos:
             for pg in range(1,int(results/6)+2):
                 url = f"https://finance.naver.com/sise/sise_index_day.nhn?code={code}&page={pg}"
