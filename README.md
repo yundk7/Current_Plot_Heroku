@@ -1,7 +1,13 @@
-| http://current-plot.herokuapp.com/
+| http://dq-27.herokuapp.com/current_plot
+
+Inspired by idea to keep up with current events,
+
+developed platform to help take a glance at critical data worth visualizing.
 
 Earthquake Plotting
-![earthquake.gif](local/img/earthquake.gif)
+
+![1.jpeg](https://media.giphy.com/media/H7lvsD8DbzFoBsOKTK/giphy.gif)
+
 1. Scrapes data from: https://earthquake.usgs.gov/
 2. Plots locations and intensities of earthquakes in time animation
 
