@@ -105,7 +105,7 @@ def kr():
         stocks_df = pd.DataFrame({"회사명": stocks})
         stocks_symbols = pd.merge(stocks_df,symbols)
         codes = stocks_symbols["종목코드"]
-        results = 100
+        results = 10
 
         dfs = []
         kos_name = ["코스피","코스피200","코스닥"]
