@@ -71,7 +71,7 @@ def us():
         dfs = []
         for stock in stocks:
             url = f'https://finance.yahoo.com/quote/{stock}/history?p={stock}'
-            df = pd.read_html(url)[0]#[0:100]
+            df = pd.read_html(url)[0]
             df["Date"]=pd.to_datetime(df["Date"],errors = "coerce")
             df.dropna(inplace = True)
             for n in range(1,7):
@@ -81,7 +81,6 @@ def us():
             df["c_base"] = df["Close*"]/base
             dfs.append(df)
 
-#         traces = []
         for n in range(len(stocks)):
             x = dfs[n]["Date"]
             y = dfs[n]["c_base"]
